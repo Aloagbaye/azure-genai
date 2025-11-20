@@ -1,0 +1,8 @@
+openai
+azure-search-documents
+python-dotenv
+nltk
+fastapi
+uvicorn
+pypdf
+unstructured

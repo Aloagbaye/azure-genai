@@ -5,3 +5,4 @@ dotenv
 pypdf
 unstructured
 nltk
+azure-search-documents

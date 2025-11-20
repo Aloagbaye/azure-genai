@@ -1,8 +1,8 @@
 # api/routers/ask.py
 from fastapi import APIRouter
 from pydantic import BaseModel
-from services.aoai_client import get_completion
-from services.search_engine import search_docs
+from api.services.aoai_client import get_completion
+from api.services.search_engine import search_docs
 
 router = APIRouter()
 

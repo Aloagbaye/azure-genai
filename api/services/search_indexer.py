@@ -1,8 +1,8 @@
 # api/services/search_indexer.py
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
-from services.embedding_client import get_embedding
-from utils.chunker import prepare_documents
+from api.services.embedding_client import get_embedding
+from api.utils.chunker import prepare_documents
 import os
 
 AZURE_SEARCH_KEY = os.getenv("AZURE_SEARCH_KEY")

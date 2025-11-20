@@ -86,7 +86,7 @@ az cognitiveservices account deployment create \
 # ==========================================================
 # Azure AI Search Setup
 # ==========================================================
-SEARCH_SERVICE_NAME="genai-search"
+SEARCH_SERVICE_NAME="soel-genai-search"
 
 echo "🔹 Creating Azure AI Search service..."
 az search service create \
@@ -98,6 +98,6 @@ az search service create \
 az search index create \
   --service-name $SEARCH_SERVICE_NAME \
   --resource-group $RESOURCE_GROUP \
-  --name docs-index \
+  --index-name docs-index \
   --body @infrastructure/ai_search/index-schema.json
 
