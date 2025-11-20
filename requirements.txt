@@ -1,0 +1,7 @@
+uvicorn
+fastapi
+openai
+dotenv
+pypdf
+unstructured
+nltk

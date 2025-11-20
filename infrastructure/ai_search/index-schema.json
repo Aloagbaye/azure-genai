@@ -1,0 +1,29 @@
+{
+  "name": "docs-index",
+  "fields": [
+    { "name": "id", "type": "Edm.String", "key": true },
+    { "name": "content", "type": "Edm.String" },
+    { "name": "title", "type": "Edm.String" },
+    {
+      "name": "embedding",
+      "type": "Collection(Edm.Single)",
+      "searchable": true,
+      "dimensions": 1536,
+      "vectorSearchConfiguration": "default"
+    }
+  ],
+  "vectorSearch": {
+    "algorithmConfigurations": [
+      {
+        "name": "default",
+        "kind": "hnsw",
+        "parameters": {
+          "m": 4,
+          "efConstruction": 400,
+          "efSearch": 500,
+          "metric": "cosine"
+        }
+      }
+    ]
+  }
+}
