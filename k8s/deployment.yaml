@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-genai-api
+  labels:
+    app: azure-genai-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: azure-genai-api
+  template:
+    metadata:
+      labels:
+        app: azure-genai-api
+    spec:
+      containers:
+      - name: azure-genai-api
+        image: yourregistryname.azurecr.io/azure-genai-api:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: AZURE_OPENAI_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: azure-genai-secrets
+              key: azure-openai-endpoint
+        - name: AZURE_OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: azure-genai-secrets
+              key: azure-openai-api-key
+        - name: AZURE_OPENAI_DEPLOYMENT_NAME
+          value: "gpt4o"
+        - name: AZURE_OPENAI_EMBEDDING_DEPLOYMENT
+          value: "embedding-small"
+        - name: AZURE_OPENAI_API_VERSION
+          value: "2024-08-01-preview"
+        - name: AZURE_SEARCH_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: azure-genai-secrets
+              key: azure-search-endpoint
+        - name: AZURE_SEARCH_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: azure-genai-secrets
+              key: azure-search-api-key
+        - name: AZURE_SEARCH_INDEX_NAME
+          value: "docs-index"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-genai-api-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8000
+  selector:
+    app: azure-genai-api
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: azure-genai-api-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: azure-genai-api
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+

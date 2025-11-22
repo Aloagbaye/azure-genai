@@ -1,8 +1,13 @@
 uvicorn
 fastapi
 openai
-dotenv
+python-dotenv
 pypdf
 unstructured
 nltk
 azure-search-documents
+gremlinpython
+spacy
+nest_asyncio
+requests
+streamlit

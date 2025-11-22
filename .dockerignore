@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+ENV/
+azure-genai/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# Docker
+Dockerfile
+.dockerignore
+
+# CI/CD
+.github/
+.azure/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+tests/
+*.test.py
+
+# Jupyter notebooks
+*.ipynb
+

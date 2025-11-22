@@ -1,0 +1,8 @@
+azure-functions
+azure-durable-functions
+azure-identity
+azure-search-documents
+openai
+python-dotenv
+requests
+
